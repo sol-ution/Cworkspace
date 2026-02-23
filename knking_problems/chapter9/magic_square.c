@@ -10,6 +10,7 @@ int main(void){
     int size;
     int count = 1;
     int row = 0; int col = 0;
+    int row_buf = 0; int col_buf = 0;
 
     printf("This program creates a magic square of a specified size.\n"
         "The size ,must be an odd number between 1 and 99.\n"
@@ -27,13 +28,18 @@ int main(void){
 
 
     for(int i = 2; i < size*size + 1; i++){
-        row++; col++;
-        row = row_end(row, size);
-        col = col_end(col, size);
-        if(magic_square[row][col] != 0){
-            row -= 2; col--;
+        row--; col++;
+        row_buf = row; col_buf = col;
+        row = row_end(row, size - 1);
+        col = col_end(col, size - 1);
+
+        while(magic_square[row][col] != 0){
+            row = row_buf; col = col_buf;
+            row += 2; col--;
         }
+        
         magic_square[row][col] = i;
+        printf("(%d,%d)\n", row, col);
     }
 
     for(int i = 0; i < size; i++){
@@ -45,16 +51,16 @@ int main(void){
 
     system("pause");
     return 0;
-} 
+}
 
 int row_end(int row, int size){
-    if(row + 1 > size) return 0;
-    if(row - 1 < 0) return size;
+    if(row > size) return 0;
+    if(row < 0) return size;
     return row;
 }
 
 int col_end(int col, int size){
-    if(col + 1 > size) return 0;
-    if(col - 1 < 0) return size;
+    if(col > size) return 0;
+    if(col < 0) return size;
     return col;
 }

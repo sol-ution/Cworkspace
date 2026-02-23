@@ -45,7 +45,7 @@ int main(void){
 
     system("pause");
     return 0;
-} 
+}
 
 int row_end(int row, int size){
     if(row + 1 > size) return 0;
