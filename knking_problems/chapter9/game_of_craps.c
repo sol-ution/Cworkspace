@@ -63,7 +63,7 @@ bool play_game(void){
     }
     else if(a[num - 1] == 2){
         printf("You win!\n\n");
-        return false;
+        return true;
     }
     else{
         printf("Your point is %d\n", num);
