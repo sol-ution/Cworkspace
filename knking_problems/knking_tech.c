@@ -17,5 +17,12 @@
 
     4. isalpha함수 -> A ~ Z -> 1반환, -> a ~ z -> 2반환
 
-    
+    5. parenthese -> stack의 성질과 match -> 
+    2개 값을 match시킬때 stack을 활용
+
+    6. poker.c -> duplicate를 확인 -> int array를 만들어서 횟수 check
+        - 작은 값들이면, 전체 탐색
+        - 배열 안의 원소들이 모두 같음을 확인하려면 -> 첫값을 기준으로 같음을 확인
+
+
 */

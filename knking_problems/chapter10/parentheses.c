@@ -1,4 +1,4 @@
-//stack의 성질과 match
+//stack의 성질과 match -> 2개 값을 match시킬때 stack을 활용
 /* #include directive */
 #include <stdio.h>
 #include <stdlib.h>
