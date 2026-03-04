@@ -1,6 +1,8 @@
 /*
     1.
     int ch = getchar();로 받을 떄
+    숫자 값이랑 문작값을 ch로 받는 경우 숫자만 int형으로 
+    쓰고 싶을 때, isdigit()함수 이용하기
     int digit = ch - '0'을 해주면 숫자로 전환가능
 
     2.
