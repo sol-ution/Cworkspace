@@ -32,4 +32,37 @@
             b = gcd;
         } -> (gcd 알고리즘)
 
+    8. bool search(const int a[], int n, int key){
+
+        const int *p;
+
+        for(p = a; p < a + n; p++){
+            if(*p == key){
+                return true;
+            }
+        }    
+            return false;
+        }
+        (포인터가 배열이랑 같다, p++ == p[i++], p < a + n)
+        (함수에서 포인터의 경우, 경로를 새로 지정하는게 아니라, 한번 가리킨 뒤
+        역참조 연산자를 이용하여 값을 새로 할당해주는 느낌이다.)
+
+    9.      double ident[N][N];
+            int count = 0;
+            double *p;
+
+            for(p = &ident[0][0]; p <= &ident[N - 1][N - 1]; p++){
+                if(count == N || p == &ident[0][0]){
+                    *p = 1.0;
+                    count = 0;
+                }
+                else{
+                    *p = 0.0;
+                    count++;
+                }
+            }
+        // 단위행렬을 만드는 코드, -> 개선 가능
+        // 다차원 배열일때는 코드를 이런 스타일로 작성한다.
+        // pointer arithmetic 보다 배열구조를 더 활용하는 느낌
+
 */
