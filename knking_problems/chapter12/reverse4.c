@@ -24,7 +24,6 @@ int main(void){
         putchar(*p);
     }
 
-
     system("pause");
     return 0;
 }

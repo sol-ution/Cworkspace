@@ -9,6 +9,8 @@ int sum_two_dimensional_array(const int a[][LEN], int n);
 int main(void){
 
     int array[LEN][LEN];
+    printf("When you come to a fork in the road, take it.   \
+         -- Yogi Berra\n");
 
 
     system("pause");

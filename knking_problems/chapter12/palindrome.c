@@ -37,7 +37,6 @@ bool is_palindrome(char arr[], int count){
 
     char *p, *q;
     q = (arr + count - 1);
-    printf("%c\n", *q);
     count = (count%2 == 1) ? count/2 - 1 : count/2;
     
     for(p = arr; p < arr + count; p++, q--){

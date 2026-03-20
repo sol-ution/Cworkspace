@@ -65,4 +65,17 @@
         // 다차원 배열일때는 코드를 이런 스타일로 작성한다.
         // pointer arithmetic 보다 배열구조를 더 활용하는 느낌
 
+    10. read_line함수
+        int read_line(char str[], int n){
+        int ch, i = 0;
+
+        while((ch = getchar()) != '\n' && ch != EOF){
+            if(i < n){
+                str[i++] = ch;
+            }
+        }
+            str[i] = '\0';
+            return i;
+        }
+
 */
