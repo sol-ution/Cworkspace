@@ -8,15 +8,16 @@
 
 /* external variables */
 int contents[STACK_SIZE];
-int top = 0;
+int *top_ptr = contents;
 
 /* prototypes */
-int read_val(void);
-
+int read_line(char rpn[]);
+void initalize_arr(char rpn[]);
+int evaluate_RPN_expression(const char *expression);
 
 /* stack */
 void make_empty(void){
-    top = 0;
+    top_ptr = contents;
 }
 
 void stack_overflow(void){
@@ -25,39 +26,42 @@ void stack_overflow(void){
 }
 
 void stack_underflow(void){
-    printf("Not enough operands in expression");
+    printf("Not enough operands in expression\n");
     exit(EXIT_FAILURE);
 }
 
 bool is_empty(void){
-    return top == 0;
+    return (top_ptr - contents) == 0;
 }
 
 bool is_full(void){
-    return top == STACK_SIZE;
+    return (top_ptr - contents) == STACK_SIZE;
 }
 
 void push(int i){
     if(is_full())
         stack_overflow();
     else
-        contents[top++] = i;
+        *top_ptr++ = i;
 }
 
 int pop(void){
     if(is_empty())
         stack_underflow();
     else
-        return contents[--top];
+        return *--top_ptr;
 }
 
 int main(void){
 
+    char rpn[STACK_SIZE + 1];
     int val;
 
     while(1){
         printf("Enter an RPN expression: ");
-        val = read_val();
+        initalize_arr(rpn);
+        read_line(rpn);
+        val = evaluate_RPN_expression(rpn);
         printf("Value of expression: %d\n", val);
     }
 
@@ -65,30 +69,67 @@ int main(void){
     return 0;
 }
 
-int read_val(void){
+int read_line(char rpn[]){
     char ch;
-    int i;
-    int sum = 0;
+    int i = 0;
 
-    while(1){
-        scanf(" %c", &ch);
-        if(isdigit(ch) != 0){
-            i = ch - '0';
-            push(i);
+    while((ch = getchar()) != '\n' && ch != EOF){
+        if(i < STACK_SIZE){
+            rpn[i++] = ch;
+        }
+    }
+    rpn[i] = '\0';
+    return i;
+}
+
+void initalize_arr(char *expression){
+    for(int i = 0; *expression != '\0';){
+        *expression++ = 0;
+    }
+    *expression = 0;
+}
+
+int evaluate_RPN_expression(const char *expression){
+    int op1, op2;
+
+    while(*expression != '\0'){
+        if(isdigit(*expression) == true){
+            push((int)(*expression - '0'));
+            expression++;
+        }
+        else if(*expression == ' '){
+            expression++;
         }
         else{
-            sum = pop();
-            switch(ch){
-                case '+': push(sum = pop() + sum); break;
-                case '-': push(sum = pop() - sum); break;
-                case '*': push(sum = pop() * sum); break;
-                case '/': push(sum = pop() / sum); break;
-                case '%': push(sum = pop() % sum); break;
-                case '=': return sum;
-                default:
-                    printf("Invalid operator: %c\n", ch); 
-                    exit(EXIT_FAILURE);
+            switch(*expression){
+                case '+': 
+                op2 = pop();
+                op1 = pop();
+                push(op1 + op2); break;
+
+                case '-':
+                op2 = pop();
+                op1 = pop(); 
+                push(op1 - op2); break;
+
+                case '*': 
+                op2 = pop();
+                op1 = pop(); 
+                push(op1 * op2); break;
+
+                case '/': 
+                op2 = pop();
+                op1 = pop(); 
+                push(op1 / op2); break;
+
+                case '%': 
+                op2 = pop();
+                op1 = pop(); 
+                push(op1 % op2); break;
+                case '=': return pop();
+                default: printf("Incompatible value\n"); exit(EXIT_FAILURE);
             }
+            expression++;
         }
     }
 }
